@@ -3,7 +3,7 @@ import { useState } from "react";
 
 function PD() {
   const [value,setValue] = useState()
-  setValue(localStorage.getItem("personDetails"));
+  // setValue(localStorage.getItem("personDetails"));
   var val = JSON.parse(value);
   // let val = JSON.stringify(value)
   console.log(val);

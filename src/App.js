@@ -56,7 +56,7 @@ const App = () => (
           </div>
 
           <Card title="Spend Analyser">
-          <PD/>
+          {/* <PD/> */}
           <Amount/>
           </Card>
         </div>

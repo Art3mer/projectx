@@ -2,6 +2,7 @@ import { Button, Form, Input } from 'antd';
 import React from 'react';
 import { CheckCircleTwoTone } from "@ant-design/icons";
 import { useState,useEffect } from 'react';
+import Amount from './amount';
 
 const PersonForm = () => {
   const [Person, setPerson] = useState([]);
@@ -13,9 +14,10 @@ const PersonForm = () => {
     console.log('Failed:', errorInfo);
   };
   useEffect(() => {
-    localStorage.setItem('personDetails',JSON.stringify(Person));
+      localStorage.setItem('personDetails',JSON.stringify(Person));
   }); 
   return (
+    <>
     <Form
       name="basic"
       labelCol={{
@@ -81,6 +83,9 @@ const PersonForm = () => {
         </Button>
       </Form.Item>
     </Form>
+    {/* <p>{JSON.stringify(Person)}</p> */}
+    <Amount person={Person}/>
+    </>
   );
 
 };

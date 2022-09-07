@@ -6,7 +6,7 @@ const SpendForm = () => {
   const [Spend, setSpend] = useState([]);
   const onFinish = (values) => {
     setSpend([...Spend,values])
-    console.log('Spend', values);
+    // console.log('Spend', values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -33,7 +33,7 @@ const SpendForm = () => {
     >
       <Form.Item
         label="Food :"
-        name="Food :"
+        name="Food"
         rules={[
           {
             required: true,
