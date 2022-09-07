@@ -5,16 +5,16 @@ import { useState,useEffect } from 'react';
 import Amount from './amount';
 
 const PersonForm = () => {
-  const [Person, setPerson] = useState([]);
+  const [erson, setPerson] = useState([]);
   const onFinish = (values) => {
-   setPerson([...Person,values])
+   setPerson(values)
     console.log('personDetails', values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   useEffect(() => {
-      localStorage.setItem('personDetails',JSON.stringify(Person));
+      localStorage.setItem('personDetails',JSON.stringify(person));
   }); 
   return (
     <>
@@ -84,7 +84,7 @@ const PersonForm = () => {
       </Form.Item>
     </Form>
     {/* <p>{JSON.stringify(Person)}</p> */}
-    <Amount person={Person}/>
+    <Amount person={person}/>
     </>
   );
 
