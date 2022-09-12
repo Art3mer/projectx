@@ -1,29 +1,20 @@
-import React from "react";
-import style from "./App.css";
-import {useState,useEffect} from 'react';
-import PersonForm from "./person form";
+// import { useState } from "react";
+import React from 'react'
 
-function Amount(props) {
-  var persons = localStorage.getItem('personDetails')
-  const [retrievedData,setRetrievedData] = useState([]);
-  console.log("vguvg"+localStorage.getItem("personDetails"))
-  console.log(persons)
-  useEffect(() => {
-    setRetrievedData(persons)
-  }, [])
-  console.log("ihbhg"+(retrievedData));
-return(
-  <>
-  <PersonForm/>
-  <h1>{props.Name}</h1>
-  {/* {retrievedData !=null ? (retrievedData.map((item) => {
-      <div style={style.gridItemsContainer}>
-        <h1>{item.Amount}</h1>
-      </div>
-    
-  })):null} */}
-</>
-)
+function amount() {
+  var val = JSON.parse(localStorage.getItem("Spend"));
+  // const [user, setUser] = useState();
+  // return val.map((item) => {
+    return(
+    <div>
+   <p>NK</p>   
+   {/* <p>{user}</p>    */}
+   <p>224</p>
+
+    </div>
+  
+  )
+    // })
 }
-export default Amount;
- 
+
+export default amount

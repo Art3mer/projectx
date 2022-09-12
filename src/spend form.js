@@ -6,7 +6,7 @@ const SpendForm = () => {
   const [Spend, setSpend] = useState([]);
   const onFinish = (values) => {
     setSpend([...Spend,values])
-    // console.log('Spend', values);
+    console.log('Spend', values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -14,7 +14,7 @@ const SpendForm = () => {
   useEffect(() => {
     localStorage.setItem('Spend',JSON.stringify(Spend));
   }); 
-
+  const NK = "Naveen";
   return (
     <Form
       name="basic"
@@ -41,9 +41,8 @@ const SpendForm = () => {
           },
         ]}
       >
-        <Input />
+        <Input value = {NK}/>
       </Form.Item>
-
       <Form.Item
         label="Amount"
         name="Amount"
@@ -56,7 +55,6 @@ const SpendForm = () => {
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         wrapperCol={{
           offset: 8,
@@ -69,7 +67,5 @@ const SpendForm = () => {
       </Form.Item>
     </Form>
   );
-
 };
-
 export default SpendForm;
