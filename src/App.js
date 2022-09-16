@@ -4,7 +4,7 @@ import { CheckCircleTwoTone } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { Card, Layout, Col, Row } from "antd";
 import "./index.css";
-import { DingdingOutlined,ZhihuOutlined } from "@ant-design/icons";
+import { DingdingOutlined, ZhihuOutlined } from "@ant-design/icons";
 import "./App.css";
 
 const { Header, Content, Footer } = Layout;
@@ -14,7 +14,7 @@ const App = () => {
 
   // const [lists, setLists] = useState([]);
   const [item, setItem] = useState([]);
-  const [arr, setArr] = useState([]);
+  const [arr, setArr] = useState({});
   const [flag, setFlag] = useState(false);
   const [average, setAverage] = useState(0);
 
@@ -26,28 +26,33 @@ const App = () => {
     localStorage.setItem("personDetails", JSON.stringify(person));
     personArr.person = values;
     await setItem(personArr);
-    // console.log("finish: " + JSON.stringify(item));
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:",errorInfo);
+    console.log("Failed:", errorInfo);
   };
   const onFinish1 = (values) => {
     console.log("OnFinish1 Values: " + JSON.stringify(item));
     item.spend = values;
-    let localArr = arr;
-
-    localArr.push(item);
     setItem(item);
-    setArr(localArr);
     setFlag(true);
-    var total=0;
-    localArr.map((item, i) => {
-      console.log("item "+JSON.stringify(item));
-      total+=parseInt(item.spend.Amount);
-    });
-    console.log("TOTAL "+total);
-    console.log("length "+arr.length);
-    setAverage(total/arr.length);
+    let list=arr;
+    console.log("listlistlist "+JSON.stringify(list));
+    if (list[item.person.Name]) {
+      console.log("EXIST"+JSON.stringify(list));
+      item.total=parseInt(list[item.person.Name].total)+parseInt(item.spend.Amount);
+      console.log("total "+item.total);
+      item.count=parseInt(list[item.person.Name].count)+1
+      console.log("count "+item.count);
+      item.average=parseInt(item.total)/parseInt(item.count);
+      console.log("average "+item.average);
+      list[item.person.Name]=item;
+    } else {
+      item.count=1;
+      item.total=item.spend.Amount;
+      console.log("NOT EXIST"+JSON.stringify(item));
+      list[item.person.Name]=item;
+    }
+    setArr(list);
   };
   const onFinishFailed1 = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -55,26 +60,26 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("Spend", JSON.stringify(spend));
   });
-  
+
   return (
     <Layout>
       <Header
         style={{
           className: "container",
-          backgroundColor: "orange",
+          backgroundColor: "gold",
           fontFamily: "serif",
           fontSize: "30px",
           textAlign: "center",
         }}
       >
-       <ZhihuOutlined />
+        <ZhihuOutlined />
         Spend Analyser
       </Header>
       <Content
         className="site-layout"
         style={{
-          padding: "0 50px",
-          marginTop: 50,
+          padding: "15 15px",
+          marginTop: 0,
         }}
       >
         <div
@@ -214,23 +219,28 @@ const App = () => {
               </Col>
             </Row>
           </div>
-          <Card title="Spend Analyser" bordered={true}
-          style={{
-            textAlign: "Left",
-          }}>
-            {flag
-              ? arr.map((item, i) => {
-                  return (
-                    <div key={i}>
-                      <p>Name : {item.person.Name}</p>
-                      <p>Amount :{item.spend.Amount}</p>
-                      <p>average :{average}</p>
-                    </div>
-                  );
-                })
-              : null}
-            <div></div>
-          </Card>
+              <Card
+                title="Spend Analyser"
+                bordered={true}
+                style={{
+                  textAlign: "Left",
+                }}
+              >
+                {flag
+                  ? Object.keys(arr).map((item, i) => {
+                    console.log("UPDATE "+JSON.stringify(arr[item]));
+                      return (
+                        <div key={i}>
+                          <p>Name : {arr[item].person.Name}</p>
+                          <p>Food : {arr[item].spend.Food}</p>
+                          <p>average :{arr[item].average}</p>
+                        </div>
+                      );
+                    })
+                  : null}
+
+                <div></div>
+              </Card>
         </div>
       </Content>
       <Footer
